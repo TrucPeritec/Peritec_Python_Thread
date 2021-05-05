@@ -1,3 +1,3 @@
-from .Peritec_Python_Thread import PeritecThreadQueue
-from .Peritec_Python_Thread import PeritecThreadTemplate
-from .Peritec_Python_Thread import PeritecThreadGetThreadByName
+from .Bico_Python_Thread import BicoThreadQueue
+from .Bico_Python_Thread import BicoThreadTemplate
+from .Bico_Python_Thread import BicoThreadGetThreadByName

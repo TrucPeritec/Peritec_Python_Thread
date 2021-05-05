@@ -1,11 +1,11 @@
 import time
 from time import sleep
-from Peritec_Python_Thread import *
+from Bico_Python_Thread import *
 
 # User output thread - begin ------------------------------------------------------------------------------------------------------------------------
-class UserOutputThread(PeritecThreadTemplate):
+class UserOutputThread(BicoThreadTemplate):
     def __init__(self, thread_name):
-        PeritecThreadTemplate.__init__(self, thread_name)
+        BicoThreadTemplate.__init__(self, thread_name)
 
     def run(self):
         while(1):
@@ -23,29 +23,29 @@ class UserOutputThread(PeritecThreadTemplate):
 # User output thread - end ------------------------------------------------------------------------------------------------------------------------
 
 # User input thread - begin ------------------------------------------------------------------------------------------------------------------------
-class UserInputThread(PeritecThreadTemplate):
+class UserInputThread(BicoThreadTemplate):
     def __init__(self, thread_name):
-        PeritecThreadTemplate.__init__(self, thread_name)
+        BicoThreadTemplate.__init__(self, thread_name)
 
     def run(self):
         while(1):
             user_command = input()
             # ----------------------------------------------------------------------------------
             if user_command == "1":
-                if PeritecThreadGetThreadByName("pr_thread") != 0:
-                    PeritecThreadGetThreadByName("pr_thread").enqueue("data_from_user_input", 1, self.getName())
-                if PeritecThreadGetThreadByName("user_output_thread") != 0:
-                    PeritecThreadGetThreadByName("user_output_thread").enqueue("data_from_user_input", 1, self.getName())
+                if BicoThreadGetThreadByName("pr_thread") != 0:
+                    BicoThreadGetThreadByName("pr_thread").enqueue("data_from_user_input", 1, self.getName())
+                if BicoThreadGetThreadByName("user_output_thread") != 0:
+                    BicoThreadGetThreadByName("user_output_thread").enqueue("data_from_user_input", 1, self.getName())
                 break
             elif user_command == "2":
-                if PeritecThreadGetThreadByName("pr_thread") != 0:
-                    PeritecThreadGetThreadByName("pr_thread").enqueue("data_from_user_input", 2, self.getName())
+                if BicoThreadGetThreadByName("pr_thread") != 0:
+                    BicoThreadGetThreadByName("pr_thread").enqueue("data_from_user_input", 2, self.getName())
             elif user_command == "3":
-                if PeritecThreadGetThreadByName("pr_thread") != 0:
-                    PeritecThreadGetThreadByName("pr_thread").enqueue("data_from_user_input", 3, self.getName())
+                if BicoThreadGetThreadByName("pr_thread") != 0:
+                    BicoThreadGetThreadByName("pr_thread").enqueue("data_from_user_input", 3, self.getName())
             elif user_command == "4":
-                if PeritecThreadGetThreadByName("pr_thread") != 0:
-                    PeritecThreadGetThreadByName("pr_thread").enqueue("data_from_user_input", 4, self.getName())
+                if BicoThreadGetThreadByName("pr_thread") != 0:
+                    BicoThreadGetThreadByName("pr_thread").enqueue("data_from_user_input", 4, self.getName())
             else:
                 pass
             # ----------------------------------------------------------------------------------
@@ -55,9 +55,9 @@ class UserInputThread(PeritecThreadTemplate):
 
 
 # Producer thread - begin ------------------------------------------------------------------------------------------------------------------------
-class PrThread(PeritecThreadTemplate):
+class PrThread(BicoThreadTemplate):
     def __init__(self, thread_name):
-        PeritecThreadTemplate.__init__(self, thread_name)
+        BicoThreadTemplate.__init__(self, thread_name)
 
     def run(self):
         while(1):
@@ -65,20 +65,20 @@ class PrThread(PeritecThreadTemplate):
             if data_queue != 0:
                 # ----------------------------------------------------------------------------------
                 if data_queue["data"] == 1:
-                    if PeritecThreadGetThreadByName("task_0") != 0:
-                        PeritecThreadGetThreadByName("task_0").enqueue("data_from_producer", 1, self.getName())
-                    if PeritecThreadGetThreadByName("task_1") != 0:
-                        PeritecThreadGetThreadByName("task_1").enqueue("data_from_producer", 1, self.getName())
+                    if BicoThreadGetThreadByName("task_0") != 0:
+                        BicoThreadGetThreadByName("task_0").enqueue("data_from_producer", 1, self.getName())
+                    if BicoThreadGetThreadByName("task_1") != 0:
+                        BicoThreadGetThreadByName("task_1").enqueue("data_from_producer", 1, self.getName())
                     break
                 elif data_queue["data"] == 2:
-                    if PeritecThreadGetThreadByName("user_output_thread") != 0:
-                        PeritecThreadGetThreadByName("user_output_thread").enqueue("print", self.getName() + " receive from " + data_queue["sender"] + ": " + str(data_queue), self.getName())
+                    if BicoThreadGetThreadByName("user_output_thread") != 0:
+                        BicoThreadGetThreadByName("user_output_thread").enqueue("print", self.getName() + " receive from " + data_queue["sender"] + ": " + str(data_queue), self.getName())
                 elif data_queue["data"] == 3:
-                    if PeritecThreadGetThreadByName("task_0") != 0:
-                        PeritecThreadGetThreadByName("task_0").enqueue("data_from_producer", 3, self.getName())
+                    if BicoThreadGetThreadByName("task_0") != 0:
+                        BicoThreadGetThreadByName("task_0").enqueue("data_from_producer", 3, self.getName())
                 elif data_queue["data"] == 4:
-                    if PeritecThreadGetThreadByName("task_1") != 0:
-                        PeritecThreadGetThreadByName("task_1").enqueue("data_from_producer", 4, self.getName())
+                    if BicoThreadGetThreadByName("task_1") != 0:
+                        BicoThreadGetThreadByName("task_1").enqueue("data_from_producer", 4, self.getName())
                 else:
                     pass
                 # ----------------------------------------------------------------------------------
@@ -88,9 +88,9 @@ class PrThread(PeritecThreadTemplate):
 
 
 # Consumer A thread - begin ------------------------------------------------------------------------------------------------------------------------
-class CsAThread(PeritecThreadTemplate):
+class CsAThread(BicoThreadTemplate):
     def __init__(self, thread_name):
-        PeritecThreadTemplate.__init__(self, thread_name)
+        BicoThreadTemplate.__init__(self, thread_name)
 
     def run(self):
         while(1):
@@ -102,11 +102,11 @@ class CsAThread(PeritecThreadTemplate):
                 elif data_queue["data"] == 2:
                     pass
                 elif data_queue["data"] == 3:
-                    if PeritecThreadGetThreadByName("user_output_thread") != 0:
-                        PeritecThreadGetThreadByName("user_output_thread").enqueue("print", self.getName() + " receive from " + data_queue["sender"] + ": " + str(data_queue), self.getName())
+                    if BicoThreadGetThreadByName("user_output_thread") != 0:
+                        BicoThreadGetThreadByName("user_output_thread").enqueue("print", self.getName() + " receive from " + data_queue["sender"] + ": " + str(data_queue), self.getName())
                 elif data_queue["data"] == 4:
-                    if PeritecThreadGetThreadByName("user_output_thread") != 0:
-                        PeritecThreadGetThreadByName("user_output_thread").enqueue("print", self.getName() + " receive from " + data_queue["sender"] + ": " + str(data_queue), self.getName())
+                    if BicoThreadGetThreadByName("user_output_thread") != 0:
+                        BicoThreadGetThreadByName("user_output_thread").enqueue("print", self.getName() + " receive from " + data_queue["sender"] + ": " + str(data_queue), self.getName())
                 else:
                     pass
                 # ----------------------------------------------------------------------------------
@@ -114,9 +114,9 @@ class CsAThread(PeritecThreadTemplate):
 # Consumer A thread - end ------------------------------------------------------------------------------------------------------------------------
 
 # Consumer B thread - begin ------------------------------------------------------------------------------------------------------------------------
-class CsBThread(PeritecThreadTemplate):
+class CsBThread(BicoThreadTemplate):
     def __init__(self, thread_name):
-        PeritecThreadTemplate.__init__(self, thread_name)
+        BicoThreadTemplate.__init__(self, thread_name)
 
     def run(self):
         while(1):
@@ -128,11 +128,11 @@ class CsBThread(PeritecThreadTemplate):
                 elif data_queue["data"] == 2:
                     pass
                 elif data_queue["data"] == 3:
-                    if PeritecThreadGetThreadByName("user_output_thread") != 0:
-                        PeritecThreadGetThreadByName("user_output_thread").enqueue("print", self.getName() + " receive from " + data_queue["sender"] + ": " + str(data_queue), self.getName())
+                    if BicoThreadGetThreadByName("user_output_thread") != 0:
+                        BicoThreadGetThreadByName("user_output_thread").enqueue("print", self.getName() + " receive from " + data_queue["sender"] + ": " + str(data_queue), self.getName())
                 elif data_queue["data"] == 4:
-                    if PeritecThreadGetThreadByName("user_output_thread") != 0:
-                        PeritecThreadGetThreadByName("user_output_thread").enqueue("print", self.getName() + " receive from " + data_queue["sender"] + ": " + str(data_queue), self.getName())
+                    if BicoThreadGetThreadByName("user_output_thread") != 0:
+                        BicoThreadGetThreadByName("user_output_thread").enqueue("print", self.getName() + " receive from " + data_queue["sender"] + ": " + str(data_queue), self.getName())
                 else:
                     pass
                 # ----------------------------------------------------------------------------------

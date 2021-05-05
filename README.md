@@ -4,7 +4,7 @@ Open command line terminal.
 
 ## Step 2:
 Run this command to install<br/>
-pip install -e git+https://github.com/TrucPeritec/Peritec_Python_Thread.git#egg=Peritec_Python_Thread<br/>
+pip install -e git+https://github.com/TrucBico/Bico_Python_Thread.git#egg=Bico_Python_Thread<br/>
 
 <br/>
 <br/>
@@ -15,15 +15,15 @@ Open command line terminal.
 
 ## Step 2:
 Run these command to upgrade<br/>
-echo y | pip uninstall Peritec_Python_Thread<br/>
-pip install -e git+https://github.com/TrucPeritec/Peritec_Python_Thread.git#egg=Peritec_Python_Thread<br/>
+echo y | pip uninstall Bico_Python_Thread<br/>
+pip install -e git+https://github.com/TrucBico/Bico_Python_Thread.git#egg=Bico_Python_Thread<br/>
 
 <br/>
 <br/>
 
 # How to use
 ## Step 1:
-Create the child class from PeritecThreadTemplate class.
+Create the child class from BicoThreadTemplate class.
 
 ## Step 2:
 Define the "run" method. "run" method contain what the thread does.
